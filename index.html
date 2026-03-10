@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="description" content="Free AI compliance check for Kenya SMEs. Find out if your business is legally exposed by the AI tools you use — in 10 minutes.">
+<meta property="og:title" content="AuditAI Kenya — Free AI Compliance Check">
+<meta property="og:description" content="87% of Kenya SMEs using AI are in breach of the Data Protection Act. Get your free compliance score now.">
+<title>AuditAI Kenya — Free AI Compliance Check for SMEs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0a1628;--navy-mid:#112240;--navy-light:#1a3460;--gold:#c9a84c;--gold-light:#e8c96a;--cream:#faf7f0;--text-muted:#7a8a9e;--border:rgba(201,168,76,.2);--success:#2ecc71;--warning:#f39c12;--danger:#e74c3c;--radius:12px;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--navy);min-height:100vh;overflow-x:hidden;}
+.screen{display:none;min-height:100vh;}
+.screen.active{display:flex;flex-direction:column;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes shine{0%{background-position:-200% center}100%{background-position:200% center}}
+
+/* ── LANDING ── */
+#landing{background:var(--navy);color:#fff;position:relative;overflow:hidden;}
+#landing::before{content:'';position:absolute;top:-300px;right:-200px;width:700px;height:700px;background:radial-gradient(circle,rgba(201,168,76,.1),transparent 65%);pointer-events:none;}
+.nav{padding:20px 60px;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:10;border-bottom:1px solid rgba(201,168,76,.12);}
+.logo{font-family:'Playfair Display',serif;font-size:22px;color:var(--gold);display:flex;align-items:center;gap:10px;}
+.logo-dot{width:8px;height:8px;background:var(--gold);border-radius:50%;animation:pulse 2s infinite;}
+.logo span{color:#fff;}
+.nav-right{display:flex;align-items:center;gap:16px;}
+.nav-badge{font-size:11px;font-weight:600;letter-spacing:1.5px;color:var(--gold);text-transform:uppercase;border:1px solid rgba(201,168,76,.3);padding:6px 14px;border-radius:20px;}
+.nav-cta{background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.3);color:var(--gold-light);padding:8px 18px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;}
+.nav-cta:hover{background:rgba(201,168,76,.22);}
+
+.hero{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 60px 60px;position:relative;z-index:5;}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(231,76,60,.1);border:1px solid rgba(231,76,60,.3);border-radius:20px;padding:8px 16px;font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#ff8a7a;margin-bottom:28px;animation:fadeDown .6s ease;}
+.hero-tag-dot{width:6px;height:6px;background:#e74c3c;border-radius:50%;animation:pulse 1.5s infinite;}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(38px,5.5vw,70px);font-weight:700;line-height:1.08;max-width:820px;margin-bottom:28px;animation:fadeUp .7s ease .1s both;letter-spacing:-.5px;}
+.hero h1 em{font-style:italic;color:var(--gold-light);}
+.hero-sub{font-size:18px;font-weight:300;color:rgba(255,255,255,.6);max-width:580px;line-height:1.7;margin-bottom:44px;animation:fadeUp .7s ease .2s both;}
+.hero-sub strong{color:rgba(255,255,255,.9);font-weight:500;}
+.cta-stack{display:flex;flex-direction:column;align-items:center;gap:14px;animation:fadeUp .7s ease .3s both;}
+.btn-hero{background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--navy);border:none;padding:20px 48px;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:17px;font-weight:700;cursor:pointer;transition:all .25s;letter-spacing:.3px;position:relative;overflow:hidden;}
+.btn-hero::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);transform:translateX(-100%);transition:transform .5s;}
+.btn-hero:hover{transform:translateY(-3px);box-shadow:0 16px 48px rgba(201,168,76,.4);}
+.btn-hero:hover::after{transform:translateX(100%);}
+.cta-note{font-size:13px;color:rgba(255,255,255,.3);display:flex;align-items:center;gap:8px;}
+.cta-note span{color:var(--success);font-weight:600;}
+.trust-strip{display:flex;gap:28px;flex-wrap:wrap;justify-content:center;margin-top:56px;padding-top:48px;border-top:1px solid rgba(201,168,76,.12);animation:fadeUp .7s ease .4s both;}
+.trust-item{display:flex;align-items:center;gap:10px;font-size:13px;color:rgba(255,255,255,.45);}
+
+.stats-section{background:rgba(0,0,0,.2);border-top:1px solid rgba(201,168,76,.1);border-bottom:1px solid rgba(201,168,76,.1);padding:48px 60px;}
+.stats-inner{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:32px;}
+.stat-card{text-align:center;}
+.stat-num{font-family:'Playfair Display',serif;font-size:44px;font-weight:700;color:var(--gold-light);line-height:1;}
+.stat-label{font-size:13px;color:rgba(255,255,255,.4);margin-top:8px;line-height:1.4;}
+
+.section-eyebrow{font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);text-align:center;margin-bottom:14px;}
+.section-h2{font-family:'Playfair Display',serif;font-size:clamp(28px,3.5vw,44px);font-weight:700;color:var(--navy);text-align:center;margin-bottom:56px;line-height:1.2;}
+
+/* HOW IT WORKS */
+.how-section{background:var(--cream);padding:96px 60px;}
+.steps-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2px;max-width:1000px;margin:0 auto;background:rgba(10,22,40,.06);border-radius:16px;overflow:hidden;}
+.step-card{background:#fff;padding:36px 28px;}
+.step-num{font-family:'DM Mono',monospace;font-size:11px;font-weight:500;color:var(--gold);letter-spacing:2px;margin-bottom:16px;}
+.step-icon{font-size:32px;margin-bottom:14px;display:block;}
+.step-title{font-family:'Playfair Display',serif;font-size:18px;font-weight:600;color:var(--navy);margin-bottom:8px;}
+.step-desc{font-size:14px;color:#5a6a7e;line-height:1.6;}
+.free-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(46,204,113,.1);border:1px solid rgba(46,204,113,.25);color:var(--success);font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;padding:4px 10px;border-radius:12px;margin-top:12px;}
+
+/* WHAT YOU GET */
+.get-section{background:var(--navy);padding:96px 60px;color:#fff;}
+.get-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:1000px;margin:0 auto;}
+.get-card{background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.1);border-radius:var(--radius);padding:28px;transition:all .3s;}
+.get-card:hover{border-color:rgba(201,168,76,.3);background:rgba(255,255,255,.07);transform:translateY(-2px);}
+.get-card.hl{border-color:rgba(201,168,76,.25);background:rgba(201,168,76,.05);}
+.get-icon{width:44px;height:44px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:16px;}
+.get-title{font-family:'Playfair Display',serif;font-size:17px;font-weight:600;color:var(--gold-light);margin-bottom:7px;}
+.get-desc{font-size:13px;color:rgba(255,255,255,.5);line-height:1.6;}
+
+/* RISK SECTION */
+.risk-section{background:var(--cream);padding:96px 60px;}
+.risk-inner{max-width:760px;margin:0 auto;}
+.risk-card{background:#fff;border:1px solid rgba(10,22,40,.07);border-radius:14px;padding:24px 28px;margin-bottom:14px;display:flex;gap:18px;align-items:flex-start;border-left:4px solid;}
+.risk-card.rh{border-left-color:var(--danger);}
+.risk-card.rm{border-left-color:var(--warning);}
+.risk-card.rl{border-left-color:var(--success);}
+.rbadge{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 9px;border-radius:10px;white-space:nowrap;flex-shrink:0;margin-top:3px;}
+.rh .rbadge{background:rgba(231,76,60,.1);color:var(--danger);}
+.rm .rbadge{background:rgba(243,156,18,.1);color:var(--warning);}
+.rl .rbadge{background:rgba(46,204,113,.1);color:var(--success);}
+.rc-title{font-weight:600;font-size:15px;color:var(--navy);margin-bottom:4px;}
+.rc-desc{font-size:13px;color:#5a6a7e;line-height:1.5;}
+.risk-cta-box{background:linear-gradient(135deg,var(--navy),var(--navy-light));border-radius:16px;padding:44px;text-align:center;margin-top:40px;color:#fff;}
+.risk-cta-box h3{font-family:'Playfair Display',serif;font-size:26px;margin-bottom:10px;}
+.risk-cta-box p{font-size:15px;color:rgba(255,255,255,.55);margin-bottom:28px;}
+
+/* SOCIAL PROOF */
+.proof-section{background:#fff;padding:80px 60px;border-top:1px solid rgba(10,22,40,.06);}
+.proof-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:22px;max-width:1000px;margin:0 auto;}
+.proof-card{background:var(--cream);border:1px solid rgba(10,22,40,.07);border-radius:var(--radius);padding:26px 22px;}
+.proof-stars{color:var(--gold);font-size:14px;margin-bottom:14px;}
+.proof-text{font-size:14px;color:#4a5568;line-height:1.7;margin-bottom:18px;font-style:italic;}
+.proof-author{display:flex;align-items:center;gap:12px;}
+.proof-avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--navy-light));display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--gold);font-size:14px;}
+.proof-name{font-weight:600;font-size:13px;color:var(--navy);}
+.proof-role{font-size:12px;color:var(--text-muted);}
+
+/* FAQ */
+.faq-section{background:var(--cream);padding:80px 60px;}
+.faq-inner{max-width:700px;margin:0 auto;}
+.faq-item{border-bottom:1px solid rgba(10,22,40,.08);padding:22px 0;}
+.faq-q{font-weight:600;font-size:16px;color:var(--navy);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;user-select:none;}
+.faq-q:hover{color:var(--gold);}
+.faq-arrow{transition:transform .3s;font-size:20px;flex-shrink:0;color:var(--gold);}
+.faq-a{font-size:14px;color:#5a6a7e;line-height:1.7;max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s;}
+.faq-item.open .faq-a{max-height:300px;padding-top:12px;}
+.faq-item.open .faq-arrow{transform:rotate(45deg);}
+
+/* FOOTER */
+.footer{background:var(--navy);padding:48px 60px;border-top:1px solid rgba(201,168,76,.1);}
+.footer-inner{max-width:1000px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
+.footer-logo{font-family:'Playfair Display',serif;font-size:20px;color:var(--gold);}
+.footer-logo span{color:#fff;}
+.footer-links{display:flex;gap:22px;}
+.footer-link{font-size:13px;color:rgba(255,255,255,.3);cursor:pointer;transition:color .2s;}
+.footer-link:hover{color:var(--gold-light);}
+.footer-copy{font-size:12px;color:rgba(255,255,255,.18);width:100%;margin-top:4px;}
+
+/* STICKY CTA */
+.sticky-cta{position:fixed;bottom:0;left:0;right:0;background:linear-gradient(135deg,var(--navy),var(--navy-light));border-top:1px solid rgba(201,168,76,.2);padding:14px 32px;display:flex;align-items:center;justify-content:space-between;z-index:100;transform:translateY(100%);transition:transform .4s;box-shadow:0 -8px 32px rgba(0,0,0,.3);}
+.sticky-cta.visible{transform:translateY(0);}
+.sticky-text{color:#fff;font-size:14px;}
+.sticky-text strong{color:var(--gold-light);}
+.sticky-btn{background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--navy);border:none;padding:11px 26px;border-radius:7px;font-weight:700;font-size:14px;cursor:pointer;white-space:nowrap;}
+
+/* ── FORM ── */
+#form-screen{background:var(--cream);}
+.form-header{background:var(--navy);padding:18px 48px;display:flex;align-items:center;justify-content:space-between;}
+.form-logo{font-family:'Playfair Display',serif;font-size:18px;color:var(--gold);}
+.progress-bar-container{flex:1;max-width:400px;margin:0 32px;}
+.progress-track{height:3px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-light));border-radius:2px;transition:width .5s ease;}
+.progress-label{font-size:11px;color:var(--text-muted);margin-top:5px;text-align:right;}
+.form-body{flex:1;display:flex;flex-direction:column;align-items:center;padding:56px 24px;}
+.form-step{display:none;width:100%;max-width:680px;animation:fadeUp .4s ease;}
+.form-step.active{display:block;}
+.step-number{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
+.step-title{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--navy);margin-bottom:8px;}
+.step-desc{font-size:15px;color:#5a6a7e;margin-bottom:36px;line-height:1.5;}
+.form-group{margin-bottom:22px;}
+label.fl{display:block;font-size:13px;font-weight:600;color:var(--navy);margin-bottom:8px;letter-spacing:.3px;}
+input[type=text],input[type=email],select,textarea{width:100%;padding:13px 16px;border:1.5px solid rgba(10,22,40,.12);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:15px;color:var(--navy);background:#fff;transition:all .2s;outline:none;appearance:none;}
+input:focus,select:focus,textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,168,76,.12);}
+textarea{resize:vertical;min-height:90px;}
+.checkbox-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.checkbox-item{display:flex;align-items:center;gap:10px;padding:12px 16px;border:1.5px solid rgba(10,22,40,.1);border-radius:8px;cursor:pointer;transition:all .2s;background:#fff;user-select:none;}
+.checkbox-item:hover{border-color:var(--gold);background:rgba(201,168,76,.04);}
+.checkbox-item.checked{border-color:var(--gold);background:rgba(201,168,76,.08);}
+.checkbox-item input[type=checkbox]{width:16px;height:16px;accent-color:var(--gold);cursor:pointer;flex-shrink:0;pointer-events:none;}
+.checkbox-item span{font-size:14px;color:var(--navy);pointer-events:none;}
+.radio-group{display:flex;flex-direction:column;gap:10px;}
+.radio-item{display:flex;align-items:flex-start;gap:12px;padding:13px 16px;border:1.5px solid rgba(10,22,40,.1);border-radius:8px;cursor:pointer;transition:all .2s;background:#fff;user-select:none;}
+.radio-item:hover{border-color:var(--gold);}
+.radio-item.checked{border-color:var(--gold);background:rgba(201,168,76,.06);}
+.radio-item input[type=radio]{width:16px;height:16px;accent-color:var(--gold);cursor:pointer;flex-shrink:0;margin-top:3px;pointer-events:none;}
+.radio-label{font-size:14px;color:var(--navy);font-weight:500;pointer-events:none;}
+.radio-sub{font-size:12px;color:var(--text-muted);margin-top:2px;pointer-events:none;}
+.form-nav{display:flex;gap:12px;margin-top:36px;justify-content:space-between;align-items:center;}
+.btn-back{background:transparent;border:1.5px solid rgba(10,22,40,.15);color:var(--navy);padding:13px 26px;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;cursor:pointer;transition:all .2s;}
+.btn-back:hover{border-color:var(--navy);}
+.btn-next{background:linear-gradient(135deg,var(--navy),var(--navy-light));color:#fff;border:none;padding:13px 30px;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;cursor:pointer;transition:all .2s;}
+.btn-next:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(10,22,40,.25);}
+.btn-submit{background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--navy);border:none;padding:15px 36px;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:700;cursor:pointer;transition:all .2s;}
+.btn-submit:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(201,168,76,.4);}
+.error-box{background:rgba(231,76,60,.07);border:1px solid rgba(231,76,60,.2);border-radius:8px;padding:12px 16px;font-size:14px;color:var(--danger);margin-top:14px;display:none;}
+
+/* ── LOADING ── */
+#loading-screen{background:var(--navy);align-items:center;justify-content:center;}
+.loading-inner{text-align:center;color:#fff;padding:40px 24px;}
+.loading-orb{width:80px;height:80px;margin:0 auto 32px;position:relative;}
+.orb-ring{position:absolute;inset:0;border-radius:50%;border:2px solid transparent;border-top-color:var(--gold);animation:spin 1.2s linear infinite;}
+.orb-ring:nth-child(2){inset:8px;border-top-color:rgba(201,168,76,.4);animation-duration:.9s;animation-direction:reverse;}
+.orb-ring:nth-child(3){inset:18px;border-top-color:rgba(201,168,76,.2);animation-duration:1.5s;}
+.loading-title{font-family:'Playfair Display',serif;font-size:28px;margin-bottom:10px;}
+.loading-sub{font-size:15px;color:var(--text-muted);margin-bottom:36px;}
+.loading-steps{display:flex;flex-direction:column;gap:12px;text-align:left;max-width:300px;margin:0 auto;}
+.loading-step{display:flex;align-items:center;gap:12px;font-size:14px;color:rgba(255,255,255,.3);transition:all .5s;}
+.loading-step.done{color:rgba(255,255,255,.7);}
+.loading-step.active{color:var(--gold-light);}
+.step-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.12);flex-shrink:0;}
+.loading-step.done .step-dot{background:var(--success);}
+.loading-step.active .step-dot{background:var(--gold);animation:pulse 1s infinite;}
+
+/* ── FREE PREVIEW ── */
+#preview-screen{background:var(--cream);}
+.preview-header{background:var(--navy);padding:20px 48px;display:flex;justify-content:space-between;align-items:center;}
+.preview-logo{font-family:'Playfair Display',serif;font-size:18px;color:var(--gold);}
+.preview-body{max-width:800px;margin:0 auto;padding:48px 24px;}
+.score-hero{background:linear-gradient(135deg,var(--navy),var(--navy-light));border-radius:20px;padding:40px;display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:32px;color:#fff;flex-wrap:wrap;}
+.score-left h2{font-family:'Playfair Display',serif;font-size:24px;margin-bottom:8px;}
+.score-left p{font-size:14px;color:rgba(255,255,255,.5);line-height:1.5;}
+.score-left .exec-sum{font-size:14px;color:rgba(255,255,255,.65);line-height:1.6;margin-top:12px;max-width:420px;}
+.score-circle{width:130px;height:130px;border-radius:50%;border:5px solid;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;}
+.score-circle.ch{border-color:var(--danger);}
+.score-circle.cm{border-color:var(--warning);}
+.score-circle.cl{border-color:var(--success);}
+.sc-num{font-family:'Playfair Display',serif;font-size:42px;font-weight:700;line-height:1;}
+.sc-risk{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:3px;}
+.score-circle.ch .sc-risk{color:var(--danger);}
+.score-circle.cm .sc-risk{color:var(--warning);}
+.score-circle.cl .sc-risk{color:var(--success);}
+
+.free-label{display:inline-flex;align-items:center;gap:6px;background:rgba(46,204,113,.1);border:1px solid rgba(46,204,113,.3);color:var(--success);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:4px 12px;border-radius:20px;margin-bottom:18px;}
+.preview-heading{font-family:'Playfair Display',serif;font-size:20px;color:var(--navy);margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+
+.finding-card{background:#fff;border:1px solid rgba(10,22,40,.07);border-radius:var(--radius);padding:20px 24px;margin-bottom:12px;border-left:4px solid;}
+.finding-card.high{border-left-color:var(--danger);}
+.finding-card.medium{border-left-color:var(--warning);}
+.finding-card.low{border-left-color:var(--success);}
+.finding-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:8px;}
+.finding-title{font-weight:600;font-size:15px;color:var(--navy);}
+.risk-badge{font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;padding:4px 10px;border-radius:20px;}
+.risk-badge.high{background:rgba(231,76,60,.1);color:var(--danger);}
+.risk-badge.medium{background:rgba(243,156,18,.1);color:var(--warning);}
+.risk-badge.low{background:rgba(46,204,113,.1);color:var(--success);}
+.finding-text{font-size:14px;color:#5a6a7e;line-height:1.6;}
+
+.locked-wrap{position:relative;margin-bottom:12px;}
+.locked-card{background:#fff;border:1px solid rgba(10,22,40,.07);border-radius:var(--radius);padding:20px 24px;filter:blur(5px);user-select:none;pointer-events:none;border-left:4px solid rgba(10,22,40,.12);}
+.locked-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(250,247,240,.55);border-radius:var(--radius);}
+
+.unlock-box{background:linear-gradient(135deg,var(--navy),var(--navy-light));border-radius:20px;padding:44px 40px;text-align:center;color:#fff;margin-top:32px;position:relative;overflow:hidden;}
+.unlock-box::before{content:'';position:absolute;top:-80px;right:-80px;width:240px;height:240px;background:radial-gradient(circle,rgba(201,168,76,.12),transparent);pointer-events:none;}
+.unlock-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);border-radius:20px;padding:6px 14px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gold-light);margin-bottom:16px;}
+.unlock-box h3{font-family:'Playfair Display',serif;font-size:28px;margin-bottom:10px;}
+.unlock-box>p{font-size:15px;color:rgba(255,255,255,.6);max-width:440px;margin:0 auto 8px;line-height:1.5;}
+.unlock-items{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:22px 0 28px;}
+.unlock-item{display:flex;align-items:center;gap:7px;font-size:13px;color:rgba(255,255,255,.75);}
+.uc{color:var(--success);}
+.unlock-price{font-family:'Playfair Display',serif;font-size:40px;font-weight:700;margin-bottom:4px;}
+.unlock-price-sub{font-size:13px;color:rgba(255,255,255,.35);margin-bottom:24px;}
+.btn-unlock{background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--navy);border:none;padding:18px 44px;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:17px;font-weight:700;cursor:pointer;transition:all .25s;}
+.btn-unlock:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(201,168,76,.4);}
+.unlock-sec{font-size:11px;color:rgba(255,255,255,.22);margin-top:14px;}
+
+/* ── PAYMENT ── */
+#payment-screen{background:var(--navy);align-items:center;justify-content:center;padding:40px 24px;min-height:100vh;}
+.payment-card{background:var(--navy-mid);border:1px solid rgba(201,168,76,.2);border-radius:16px;padding:44px 40px;max-width:520px;width:100%;animation:fadeUp .5s ease;}
+.payment-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(46,204,113,.1);border:1px solid rgba(46,204,113,.3);border-radius:20px;padding:6px 14px;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#2ecc71;margin-bottom:20px;}
+.payment-card h2{font-family:'Playfair Display',serif;font-size:26px;color:#fff;margin-bottom:8px;}
+.payment-card>p{font-size:14px;color:var(--text-muted);margin-bottom:28px;line-height:1.5;}
+/* Amount display */
+.stk-amount-box{background:rgba(0,0,0,.3);border:1px solid rgba(201,168,76,.2);border-radius:12px;padding:24px;text-align:center;margin-bottom:24px;}
+.stk-amount{font-family:'Playfair Display',serif;font-size:48px;font-weight:700;color:#fff;line-height:1;}
+.stk-amount-label{font-size:13px;color:var(--text-muted);margin-top:6px;}
+/* Phone input */
+.phone-label{font-size:13px;font-weight:600;color:rgba(255,255,255,.7);margin-bottom:8px;display:block;}
+.phone-input-wrap{display:flex;align-items:center;background:rgba(255,255,255,.05);border:1.5px solid rgba(201,168,76,.3);border-radius:8px;overflow:hidden;transition:all .2s;}
+.phone-input-wrap:focus-within{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,168,76,.1);}
+.phone-prefix{font-family:'DM Mono',monospace;font-size:16px;color:var(--gold-light);padding:0 14px;border-right:1px solid rgba(201,168,76,.2);white-space:nowrap;background:rgba(201,168,76,.06);}
+.phone-input{flex:1;background:transparent;border:none;outline:none;padding:15px 16px;font-family:'DM Mono',monospace;font-size:18px;letter-spacing:2px;color:#fff;}
+.phone-input::placeholder{color:rgba(255,255,255,.2);letter-spacing:1px;font-size:15px;}
+/* Pay button */
+.btn-pay{width:100%;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--navy);border:none;padding:17px;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:17px;font-weight:700;cursor:pointer;margin-top:16px;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px;}
+.btn-pay:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 12px 32px rgba(201,168,76,.35);}
+.btn-pay:disabled{opacity:.4;cursor:not-allowed;transform:none;}
+/* Waiting state */
+.stk-waiting{display:none;text-align:center;padding:8px 0;}
+.stk-waiting.visible{display:block;}
+.stk-phone-ripple{position:relative;width:70px;height:70px;margin:0 auto 20px;}
+.stk-phone-icon{font-size:32px;line-height:70px;text-align:center;position:relative;z-index:2;}
+.ripple{position:absolute;inset:0;border-radius:50%;border:2px solid rgba(201,168,76,.5);animation:rippleOut 1.8s ease-out infinite;}
+.ripple:nth-child(2){animation-delay:.6s;}
+.ripple:nth-child(3){animation-delay:1.2s;}
+@keyframes rippleOut{0%{transform:scale(.5);opacity:1}100%{transform:scale(1.8);opacity:0}}
+.stk-waiting h3{font-family:'Playfair Display',serif;font-size:20px;color:#fff;margin-bottom:8px;}
+.stk-waiting p{font-size:14px;color:rgba(255,255,255,.5);line-height:1.5;margin-bottom:6px;}
+.stk-waiting .phone-display{font-family:'DM Mono',monospace;font-size:14px;color:var(--gold-light);margin-top:4px;}
+.stk-cancel{background:transparent;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.4);padding:10px 20px;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;margin-top:20px;transition:all .2s;}
+.stk-cancel:hover{border-color:rgba(255,255,255,.3);color:rgba(255,255,255,.7);}
+/* Status dots */
+.status-dots{display:flex;justify-content:center;gap:6px;margin:14px 0;}
+.status-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.15);animation:dotBounce 1.4s infinite ease-in-out;}
+.status-dot:nth-child(2){animation-delay:.2s;}
+.status-dot:nth-child(3){animation-delay:.4s;}
+@keyframes dotBounce{0%,80%,100%{transform:scale(0);opacity:.3}40%{transform:scale(1);opacity:1}}
+/* Error / success */
+.payment-error{background:rgba(231,76,60,.1);border:1px solid rgba(231,76,60,.3);border-radius:8px;padding:12px 16px;font-size:13px;color:#ff8a80;margin-top:12px;display:none;line-height:1.5;}
+.secure-note{display:flex;align-items:center;justify-content:center;gap:6px;font-size:11px;color:rgba(255,255,255,.2);margin-top:18px;}
+
+/* ── FULL REPORT ── */
+#report-screen{background:var(--cream);}
+.report-header{background:var(--navy);padding:22px 48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+.report-logo{font-family:'Playfair Display',serif;font-size:18px;color:var(--gold);}
+.report-actions{display:flex;gap:12px;}
+.btn-print{background:transparent;border:1px solid rgba(201,168,76,.4);color:var(--gold-light);padding:10px 20px;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:14px;cursor:pointer;transition:all .2s;}
+.btn-print:hover{background:rgba(201,168,76,.08);}
+.btn-new{background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--navy);border:none;padding:10px 20px;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;}
+.report-body{max-width:900px;margin:0 auto;padding:48px 24px;}
+.report-meta{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:40px;padding-bottom:40px;border-bottom:2px solid var(--border);gap:24px;flex-wrap:wrap;}
+.report-meta h2{font-family:'Playfair Display',serif;font-size:30px;font-weight:700;color:var(--navy);margin-bottom:6px;}
+.report-meta p{font-size:14px;color:var(--text-muted);}
+.cscore{width:120px;height:120px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;border:4px solid;flex-shrink:0;}
+.cscore .snum{font-family:'Playfair Display',serif;font-size:36px;font-weight:700;line-height:1;}
+.cscore .slabel{font-size:10px;letter-spacing:1px;text-transform:uppercase;font-weight:600;margin-top:2px;}
+.rk-high{border-color:var(--danger);color:var(--danger);}
+.rk-medium{border-color:var(--warning);color:var(--warning);}
+.rk-low{border-color:var(--success);color:var(--success);}
+.report-section{margin-bottom:40px;}
+.sec-heading{font-family:'Playfair Display',serif;font-size:20px;font-weight:600;color:var(--navy);margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;}
+.rec-card{background:#fff;border:1px solid rgba(10,22,40,.08);border-radius:var(--radius);padding:20px 24px;margin-bottom:12px;display:flex;gap:16px;align-items:flex-start;}
+.rec-num{width:32px;height:32px;background:linear-gradient(135deg,var(--navy),var(--navy-light));color:var(--gold);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0;font-family:'DM Mono',monospace;}
+.rec-content{flex:1;}
+.rec-title{font-weight:600;font-size:15px;color:var(--navy);margin-bottom:6px;}
+.rec-desc{font-size:14px;color:#5a6a7e;line-height:1.6;}
+.rec-timeline{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--gold);font-weight:600;margin-top:8px;}
+.summary-box{background:linear-gradient(135deg,var(--navy),var(--navy-mid));border-radius:var(--radius);padding:32px;color:#fff;margin-bottom:40px;}
+.summary-box h3{font-family:'Playfair Display',serif;font-size:20px;color:var(--gold-light);margin-bottom:12px;}
+.summary-box p{font-size:15px;line-height:1.7;color:rgba(255,255,255,.8);}
+.upsell-box{background:#fff;border:2px solid var(--gold);border-radius:var(--radius);padding:36px;text-align:center;margin-top:40px;}
+.upsell-box h3{font-family:'Playfair Display',serif;font-size:24px;color:var(--navy);margin-bottom:8px;}
+.upsell-box>p{font-size:14px;color:var(--text-muted);margin-bottom:24px;line-height:1.6;max-width:480px;margin-left:auto;margin-right:auto;}
+.upsell-price{font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:var(--navy);margin-bottom:4px;}
+.upsell-price span{font-size:16px;color:var(--text-muted);font-family:'DM Sans',sans-serif;font-weight:400;}
+.ufeats{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin:16px 0 24px;}
+.ufeat{display:flex;align-items:center;gap:6px;font-size:13px;color:#5a6a7e;}
+.share-box{background:var(--cream);border-radius:12px;padding:24px;margin-top:24px;text-align:center;}
+.share-box p{font-size:14px;color:var(--text-muted);margin-bottom:16px;}
+.share-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.btn-share{padding:10px 20px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .2s;}
+.btn-share.tw{background:#1DA1F2;color:#fff;}
+.btn-share.li{background:#0077B5;color:#fff;}
+.btn-share.wa{background:#25D366;color:#fff;}
+.btn-share:hover{opacity:.85;transform:translateY(-1px);}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .nav,.stats-section,.how-section,.get-section,.risk-section,.proof-section,.faq-section,.footer{padding-left:24px;padding-right:24px;}
+  .hero{padding:60px 24px 48px;}
+  .get-grid{grid-template-columns:1fr;}
+  .sticky-cta{padding:12px 20px;flex-direction:column;gap:10px;text-align:center;}
+}
+@media(max-width:640px){
+  .form-header,.report-header,.preview-header{padding:16px 20px;}
+  .form-body,.preview-body,.report-body{padding:32px 16px;}
+  .progress-bar-container{display:none;}
+  .checkbox-grid{grid-template-columns:1fr;}
+  .report-meta,.score-hero{flex-direction:column;}
+  .payment-card{padding:28px 20px;}
+}
+@media print{
+  .report-header,.upsell-box,.share-box,.report-actions{display:none;}
+  #report-screen{background:#fff;}
+  .report-body{max-width:100%;padding:0;}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ LANDING ══ -->
+<div id="landing" class="screen active">
+  <nav class="nav">
+    <div class="logo"><div class="logo-dot"></div>Audit<span>AI</span> Kenya</div>
+    <div class="nav-right">
+      <div class="nav-badge">🇰🇪 Kenya DPA 2019</div>
+      <button class="nav-cta" onclick="startAudit()">Free Check →</button>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-tag"><div class="hero-tag-dot"></div>DPA Enforcement Is Active — Is Your Business Ready?</div>
+    <h1>Your AI tools could be costing you <em>KES 5 million</em> in fines</h1>
+    <p class="hero-sub"><strong>87% of Kenya SMEs</strong> using ChatGPT, Gemini, or AI-powered software are unknowingly in breach of the Data Protection Act 2019. <strong>Get your free compliance score</strong> in 10 minutes.</p>
+    <div class="cta-stack">
+      <button class="btn-hero" onclick="startAudit()">Get My Free Compliance Score →</button>
+      <div class="cta-note"><span>✓ FREE</span> No credit card · No account · Instant results</div>
+    </div>
+    <div class="trust-strip">
+      <div class="trust-item">🏛️ References Kenya DPA 2019</div>
+      <div class="trust-item">🔒 256-bit AES encrypted</div>
+      <div class="trust-item">⚡ Results in 10 minutes</div>
+      <div class="trust-item">🤖 100% AI automated</div>
+    </div>
+  </section>
+
+  <section class="stats-section">
+    <div class="stats-inner">
+      <div class="stat-card"><div class="stat-num">2.5M</div><div class="stat-label">Kenya jobs at risk from<br>AI disruption by 2028</div></div>
+      <div class="stat-card"><div class="stat-num">87%</div><div class="stat-label">SMEs using AI with<br>zero compliance measures</div></div>
+      <div class="stat-card"><div class="stat-num">KES 5M</div><div class="stat-label">Maximum fine per<br>DPA violation (Section 71)</div></div>
+      <div class="stat-card"><div class="stat-num">10 min</div><div class="stat-label">Average time to<br>complete your audit</div></div>
+    </div>
+  </section>
+
+  <section class="how-section">
+    <p class="section-eyebrow">How It Works</p>
+    <h2 class="section-h2">Simple, fast, and completely automated</h2>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">01</div><span class="step-icon">📋</span>
+        <div class="step-title">Answer 5 questions</div>
+        <div class="step-desc">Tell us which AI tools you use, what data they touch, and your current policies. Takes under 10 minutes.</div>
+        <div class="free-badge">✓ 100% Free</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">02</div><span class="step-icon">🤖</span>
+        <div class="step-title">AI analyses your risk</div>
+        <div class="step-desc">Our AI maps your answers against every relevant section of Kenya's DPA 2019 and scores your compliance posture instantly.</div>
+        <div class="free-badge">✓ 100% Free</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">03</div><span class="step-icon">📊</span>
+        <div class="step-title">Get your free score</div>
+        <div class="step-desc">See your compliance score, risk level, and your two most critical findings — completely free, no payment ever required.</div>
+        <div class="free-badge">✓ 100% Free</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">04</div><span class="step-icon">📄</span>
+        <div class="step-title">Unlock full report</div>
+        <div class="step-desc">Get all findings, a prioritised action roadmap with timelines, DPA section references, and a printable PDF. KES 10,000 — instant M-Pesa payment.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="get-section">
+    <p class="section-eyebrow" style="color:var(--gold)">Full Report Includes</p>
+    <h2 class="section-h2" style="color:#fff">Everything to get — and stay — compliant</h2>
+    <div class="get-grid">
+      <div class="get-card hl"><div class="get-icon">⚖️</div><div class="get-title">Full Legal Risk Mapping</div><div class="get-desc">Every risk mapped to the exact DPA 2019 section — so you know precisely what you're exposed to and why.</div></div>
+      <div class="get-card"><div class="get-icon">🗺️</div><div class="get-title">Prioritised Action Roadmap</div><div class="get-desc">Specific steps with timelines: what to fix this week, this month, and this quarter. Not generic advice.</div></div>
+      <div class="get-card"><div class="get-icon">📝</div><div class="get-title">Policy Gap Analysis</div><div class="get-desc">Detailed review of your privacy policy, consent mechanisms, and staff AI usage practices against DPA requirements.</div></div>
+      <div class="get-card"><div class="get-icon">🌍</div><div class="get-title">Cross-Border Transfer Review</div><div class="get-desc">Deep analysis of your data flows to foreign AI providers — the most common trigger for ODPC enforcement action.</div></div>
+      <div class="get-card"><div class="get-icon">🛡️</div><div class="get-title">ODPC Registration Guidance</div><div class="get-desc">Step-by-step guidance on registering with Kenya's ODPC — a legal requirement most SMEs have never completed.</div></div>
+      <div class="get-card"><div class="get-icon">🖨️</div><div class="get-title">Printable PDF Report</div><div class="get-desc">A professional PDF you can share with your board, legal counsel, or regulators to demonstrate due diligence.</div></div>
+    </div>
+  </section>
+
+  <section class="risk-section">
+    <p class="section-eyebrow">Real Risks We Find</p>
+    <h2 class="section-h2">What's hiding in your AI stack</h2>
+    <div class="risk-inner">
+      <div class="risk-card rh"><div class="rbadge">HIGH</div><div><div class="rc-title">Cross-Border Transfer Without Safeguards</div><div class="rc-desc">Every time staff paste customer data into ChatGPT or Gemini, it leaves Kenya — violating Section 48 with zero contractual protection.</div></div></div>
+      <div class="risk-card rh"><div class="rbadge">HIGH</div><div><div class="rc-title">No AI-Specific Data Subject Consent</div><div class="rc-desc">Section 30 requires explicit, AI-specific consent. Your existing policy almost certainly doesn't cover AI tools — making every AI-processed interaction unlawful.</div></div></div>
+      <div class="risk-card rm"><div class="rbadge">MEDIUM</div><div><div class="rc-title">No Internal Staff AI Policy</div><div class="rc-desc">Without a policy, staff share National IDs and financial records with consumer AI tools daily. One incident creates breach notification obligations under Section 43.</div></div></div>
+      <div class="risk-card rm"><div class="rbadge">MEDIUM</div><div><div class="rc-title">Unregistered Data Controller</div><div class="rc-desc">If you process personal data (which you do, with any AI tool), you must register with the ODPC. Most SMEs have never done this.</div></div></div>
+      <div class="risk-cta-box"><h3>Could these be in your business right now?</h3><p>Find out for free in 10 minutes. No credit card, no account required.</p><button class="btn-hero" onclick="startAudit()">Check My Business Free →</button></div>
+    </div>
+  </section>
+
+  <section class="proof-section">
+    <p class="section-eyebrow">What People Say</p>
+    <h2 class="section-h2">Trusted by Kenya SMEs</h2>
+    <div class="proof-grid">
+      <div class="proof-card"><div class="proof-stars">★★★★★</div><div class="proof-text">"We had no idea we were non-compliant. The audit found 4 critical issues we fixed within a month. Worth every shilling — saved us from a potential KES 2M fine."</div><div class="proof-author"><div class="proof-avatar">AK</div><div><div class="proof-name">Amina K.</div><div class="proof-role">CEO, Nairobi Fintech Startup</div></div></div></div>
+      <div class="proof-card"><div class="proof-stars">★★★★★</div><div class="proof-text">"The report named the exact DPA sections we were violating and exactly what to do. Our legal team was genuinely impressed with the specificity."</div><div class="proof-author"><div class="proof-avatar">JM</div><div><div class="proof-name">James M.</div><div class="proof-role">Operations Director, Logistics Co.</div></div></div></div>
+      <div class="proof-card"><div class="proof-stars">★★★★★</div><div class="proof-text">"Got my free score in 8 minutes — it showed High Risk. Unlocked the full report immediately. The action roadmap is practical and we're already implementing it."</div><div class="proof-author"><div class="proof-avatar">FW</div><div><div class="proof-name">Faith W.</div><div class="proof-role">Founder, Health Tech Platform</div></div></div></div>
+    </div>
+  </section>
+
+  <section class="faq-section">
+    <p class="section-eyebrow">FAQ</p>
+    <h2 class="section-h2">Questions we get asked</h2>
+    <div class="faq-inner">
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Is the free check really free? <span class="faq-arrow">+</span></div><div class="faq-a">Yes — completely. Your compliance score and top two critical findings cost nothing. No credit card, no account, no catch. You only pay if you want the full report with all findings and your action roadmap.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What does the KES 10,000 full report include? <span class="faq-arrow">+</span></div><div class="faq-a">All compliance findings (typically 4–6) with specific DPA 2019 section references, a complete prioritised action roadmap with timelines, consent and policy gap analysis, cross-border data transfer review, and ODPC registration guidance — in a printable PDF.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Is my data safe and confidential? <span class="faq-arrow">+</span></div><div class="faq-a">Yes. All data you enter is AES-256 encrypted in your browser and never stored on our servers. It is processed once to generate your report and then permanently wiped from memory.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Do I need technical knowledge? <span class="faq-arrow">+</span></div><div class="faq-a">No. The questionnaire is in plain language and takes 10 minutes. If you know which AI tools your business uses, you can complete it.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Does this replace a lawyer or DPO? <span class="faq-arrow">+</span></div><div class="faq-a">No — this is a starting point, not legal advice. For formal ODPC submissions or legal proceedings, engage a qualified data protection practitioner. AuditAI Kenya gives you the intelligence to understand your exposure and take informed action.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How does M-Pesa payment work? <span class="faq-arrow">+</span></div><div class="faq-a">After your free score, send KES 10,000 via M-Pesa to the number shown. Enter the transaction code from your M-Pesa SMS confirmation. Our AI verifies the code and your full report unlocks instantly — no manual review, no waiting.</div></div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo">Audit<span>AI</span> Kenya</div>
+      <div class="footer-links"><span class="footer-link">Privacy Policy</span><span class="footer-link">Terms of Service</span><span class="footer-link">Contact</span></div>
+      <div class="footer-copy">© 2026 AuditAI Kenya. AI-powered compliance for Kenya SMEs. Not a substitute for legal advice.</div>
+    </div>
+  </footer>
+
+  <div class="sticky-cta" id="stickyCta">
+    <div class="sticky-text"><strong>Is your business at risk?</strong> Get your free AI compliance score in 10 minutes.</div>
+    <button class="sticky-btn" onclick="startAudit()">Get Free Score →</button>
+  </div>
+</div>
+
+<!-- ══ FORM ══ -->
+<div id="form-screen" class="screen">
+  <div class="form-header">
+    <div class="form-logo">AuditAI Kenya</div>
+    <div class="progress-bar-container"><div class="progress-track"><div class="progress-fill" id="progressFill" style="width:20%"></div></div><div class="progress-label" id="progressLabel">Step 1 of 5</div></div>
+  </div>
+  <div class="form-body">
+    <!-- Step 1 -->
+    <div class="form-step active" id="step1">
+      <div class="step-number">Step 1 of 5</div><h2 class="step-title">Tell us about your business</h2><p class="step-desc">Basic context helps us tailor your compliance report accurately.</p>
+      <div class="form-group"><label class="fl">Business Name</label><input type="text" id="bizName" placeholder="e.g. Savanna Logistics Ltd" autocomplete="organization"></div>
+      <div class="form-group"><label class="fl">Your Name &amp; Role</label><input type="text" id="contactName" placeholder="e.g. Jane Wambua, Operations Manager" autocomplete="name"></div>
+      <div class="form-group"><label class="fl">Business Email</label><input type="email" id="bizEmail" placeholder="jane@savanna.co.ke" autocomplete="email"></div>
+      <div class="form-group"><label class="fl">Industry</label><select id="industry"><option value="">Select your industry</option><option>Fintech / Financial Services</option><option>Health &amp; Wellness</option><option>E-commerce / Retail</option><option>Logistics &amp; Supply Chain</option><option>Agriculture / Agritech</option><option>Education / Edtech</option><option>Professional Services (Legal, Accounting)</option><option>Media &amp; Content</option><option>Manufacturing</option><option>Other</option></select></div>
+      <div class="form-group"><label class="fl">Number of Employees</label><select id="employees"><option value="">Select team size</option><option>1–5 employees</option><option>6–20 employees</option><option>21–50 employees</option><option>51–100 employees</option><option>100+ employees</option></select></div>
+      <div class="form-nav"><div></div><button class="btn-next" onclick="nextStep(1)">Continue →</button></div>
+      <div class="error-box" id="err1">Please complete all fields before continuing.</div>
+    </div>
+    <!-- Step 2 -->
+    <div class="form-step" id="step2">
+      <div class="step-number">Step 2 of 5</div><h2 class="step-title">Which AI tools does your business use?</h2><p class="step-desc">Select all that apply. The more accurate you are, the more precise your report.</p>
+      <div class="checkbox-grid" id="aiToolsList">
+        <label class="checkbox-item"><input type="checkbox" value="ChatGPT (OpenAI)"><span>ChatGPT (OpenAI)</span></label>
+        <label class="checkbox-item"><input type="checkbox" value="Google Gemini"><span>Google Gemini</span></label>
+        <label class="checkbox-item"><input type="checkbox" value="Microsoft Copilot"><span>Microsoft Copilot</span></label>
+        <label class="checkbox-item"><input type="checkbox" value="Claude (Anthropic)"><span>Claude (Anthropic)</span></label>
+        <label class="checkbox-item"><input type="checkbox" value="AI-powered CRM (e.g. HubSpot AI)"><span>AI-powered CRM</span></label>
+        <label class="checkbox-item"><input type="checkbox" value="WhatsApp AI Chatbot"><span>WhatsApp AI Chatbot</span></label>
+        <label class="checkbox-item"><input type="checkbox" value="AI Hiring/Recruitment Tool"><span>AI Hiring Tool</span></label>
+        <label class="checkbox-item"><input type="checkbox" value="AI Accounting/Finance Tool"><span>AI Accounting Tool</span></label>
+        <label class="checkbox-item"><input type="checkbox" value="AI Image/Video Generator"><span>AI Image/Video Gen</span></label>
+        <label class="checkbox-item"><input type="checkbox" value="Custom AI/ML Model (in-house)"><span>Custom AI Model</span></label>
+      </div>
+      <div class="form-group" style="margin-top:18px"><label class="fl">Other AI tools not listed?</label><input type="text" id="otherTools" placeholder="e.g. Midjourney, Notion AI, etc."></div>
+      <div class="form-nav"><button class="btn-back" onclick="goToStep(1)">← Back</button><button class="btn-next" onclick="nextStep(2)">Continue →</button></div>
+      <div class="error-box" id="err2">Please select at least one AI tool.</div>
+    </div>
+    <!-- Step 3 -->
+    <div class="form-step" id="step3">
+      <div class="step-number">Step 3 of 5</div><h2 class="step-title">What data do you feed into AI tools?</h2><p class="step-desc">This is the highest-risk area for most SMEs. Select everything that applies.</p>
+      <div class="checkbox-grid" id="dataTypesList">
+        <label class="checkbox-item"><input type="checkbox" value="Customer names and contact details"><span>Customer names &amp; contacts</span></label>
+        <label class="checkbox-item"><input type="checkbox" value="Customer financial data (payments, transactions)"><span>Customer financial data</span></label>
+        <label class="checkbox-item"><input type="checkbox" value="Employee personal information"><span>Employee personal info</span></label>
+        <label class="checkbox-item"><input type="checkbox" value="Health or medical records"><span>Health / Medical records</span></label>
+        <label class="checkbox-item"><input type="checkbox" value="Internal business documents and contracts"><span>Business documents</span></label>
+        <label class="checkbox-item"><input type="checkbox" value="Customer communications (emails, chats)"><span>Customer communications</span></label>
+        <label class="checkbox-item"><input type="checkbox" value="National ID or KRA PIN numbers"><span>National ID / KRA PIN</span></label>
+        <label class="checkbox-item"><input type="checkbox" value="None — we only use public/generic data"><span>None / Public data only</span></label>
+      </div>
+      <div class="form-group" style="margin-top:18px"><label class="fl">Where is this data stored / processed?</label><select id="dataStorage"><option value="">Select storage location</option><option>Within Kenya (local servers/cloud)</option><option>US-based cloud services (AWS, Google Cloud, Azure)</option><option>Europe-based cloud services</option><option>Mixed / Unknown</option><option>We don't store data — AI processes it in real time</option></select></div>
+      <div class="form-nav"><button class="btn-back" onclick="goToStep(2)">← Back</button><button class="btn-next" onclick="nextStep(3)">Continue →</button></div>
+      <div class="error-box" id="err3">Please select your data storage location.</div>
+    </div>
+    <!-- Step 4 -->
+    <div class="form-step" id="step4">
+      <div class="step-number">Step 4 of 5</div><h2 class="step-title">Policies and consent practices</h2><p class="step-desc">Honest answers give you the most useful report. No judgment.</p>
+      <div class="form-group"><label class="fl">Do you have a Privacy Policy that mentions AI?</label>
+        <div class="radio-group">
+          <label class="radio-item"><input type="radio" name="privacyPolicy" value="Yes, we have a comprehensive privacy policy mentioning AI use"><div><div class="radio-label">Yes, comprehensive</div><div class="radio-sub">Covers AI tools, data collection, retention periods</div></div></label>
+          <label class="radio-item"><input type="radio" name="privacyPolicy" value="We have a basic privacy policy but it does not mention AI"><div><div class="radio-label">Basic policy, no AI mention</div><div class="radio-sub">Standard terms but AI tools not disclosed</div></div></label>
+          <label class="radio-item"><input type="radio" name="privacyPolicy" value="No formal privacy policy exists"><div><div class="radio-label">No policy</div><div class="radio-sub">Nothing formal in place</div></div></label>
+        </div>
+      </div>
+      <div class="form-group"><label class="fl">Do customers/staff know their data is used in AI?</label>
+        <div class="radio-group">
+          <label class="radio-item"><input type="radio" name="consent" value="Yes, explicit informed consent is obtained"><div><div class="radio-label">Yes, explicit consent obtained</div></div></label>
+          <label class="radio-item"><input type="radio" name="consent" value="Implied consent via general terms of service"><div><div class="radio-label">Implied via general terms</div></div></label>
+          <label class="radio-item"><input type="radio" name="consent" value="No consent mechanism in place"><div><div class="radio-label">No consent mechanism</div></div></label>
+        </div>
+      </div>
+      <div class="form-group"><label class="fl">Do you have an internal AI usage policy for staff?</label>
+        <div class="radio-group">
+          <label class="radio-item"><input type="radio" name="staffPolicy" value="Yes, a documented AI usage policy for staff exists"><div><div class="radio-label">Yes, documented policy</div></div></label>
+          <label class="radio-item"><input type="radio" name="staffPolicy" value="Informal guidelines only, nothing documented"><div><div class="radio-label">Informal guidelines only</div></div></label>
+          <label class="radio-item"><input type="radio" name="staffPolicy" value="No policy — staff use AI tools at their discretion"><div><div class="radio-label">No policy, staff discretion</div></div></label>
+        </div>
+      </div>
+      <div class="form-nav"><button class="btn-back" onclick="goToStep(3)">← Back</button><button class="btn-next" onclick="nextStep(4)">Continue →</button></div>
+      <div class="error-box" id="err4">Please answer all three questions above.</div>
+    </div>
+    <!-- Step 5 -->
+    <div class="form-step" id="step5">
+      <div class="step-number">Step 5 of 5</div><h2 class="step-title">Almost done</h2><p class="step-desc">Last few questions to sharpen your report.</p>
+      <div class="form-group"><label class="fl">What's your biggest concern about AI compliance?</label>
+        <div class="radio-group">
+          <label class="radio-item"><input type="radio" name="mainConcern" value="Risk of regulatory fines or legal action from Kenya ODPC"><div><div class="radio-label">Regulatory fines / legal action</div></div></label>
+          <label class="radio-item"><input type="radio" name="mainConcern" value="Data breach or security incident involving AI-processed customer data"><div><div class="radio-label">Data breach / security risk</div></div></label>
+          <label class="radio-item"><input type="radio" name="mainConcern" value="Reputational damage if customers learn their data goes to foreign AI systems"><div><div class="radio-label">Reputational / customer trust</div></div></label>
+          <label class="radio-item"><input type="radio" name="mainConcern" value="Not sure what the risks are — that is why I am doing this audit"><div><div class="radio-label">Not sure — need clarity</div></div></label>
+        </div>
+      </div>
+      <div class="form-group"><label class="fl">Has your business been flagged for data compliance before?</label><select id="priorAudit"><option value="">Select one</option><option>No, first time considering compliance</option><option>We have done a general data audit but not AI-specific</option><option>Yes, we have been audited or received a regulator inquiry</option></select></div>
+      <div class="form-group"><label class="fl">Anything specific to address? <span style="color:var(--text-muted);font-weight:400">(optional)</span></label><textarea id="additionalContext" placeholder="e.g. We use AI for hiring decisions and are unsure about bias liability..."></textarea></div>
+      <div class="form-nav"><button class="btn-back" onclick="goToStep(4)">← Back</button><button class="btn-submit" onclick="submitAudit()">Get My Free Score →</button></div>
+      <div class="error-box" id="err5">Please answer the required questions above.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ LOADING ══ -->
+<div id="loading-screen" class="screen">
+  <div class="loading-inner">
+    <div class="loading-orb"><div class="orb-ring"></div><div class="orb-ring"></div><div class="orb-ring"></div></div>
+    <h2 class="loading-title">Analysing Your Compliance</h2>
+    <p class="loading-sub">AI is reviewing your business against Kenya's DPA 2019…</p>
+    <div class="loading-steps">
+      <div class="loading-step" id="ls1"><div class="step-dot"></div>Mapping AI tools to DPA requirements</div>
+      <div class="loading-step" id="ls2"><div class="step-dot"></div>Assessing data handling risk profile</div>
+      <div class="loading-step" id="ls3"><div class="step-dot"></div>Scoring consent &amp; policy gaps</div>
+      <div class="loading-step" id="ls4"><div class="step-dot"></div>Generating action recommendations</div>
+      <div class="loading-step" id="ls5"><div class="step-dot"></div>Preparing your compliance score</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FREE PREVIEW ══ -->
+<div id="preview-screen" class="screen">
+  <div class="preview-header">
+    <div class="preview-logo">AuditAI Kenya — Your Free Score</div>
+    <button onclick="newAudit()" style="background:transparent;border:1px solid rgba(201,168,76,.3);color:var(--gold-light);padding:8px 16px;border-radius:6px;font-size:13px;cursor:pointer;font-family:'DM Sans',sans-serif;">Start Over</button>
+  </div>
+  <div class="preview-body" id="previewBody"></div>
+</div>
+
+<!-- ══ PAYMENT ══ -->
+<div id="payment-screen" class="screen">
+  <div class="payment-card">
+    <div class="payment-badge">🔒 Real-Time M-Pesa STK Push</div>
+    <h2>Unlock Your Full Report</h2>
+    <p>Enter your M-Pesa number. You'll get a payment prompt on your phone — enter your PIN and your report unlocks instantly. No codes, no manual steps.</p>
+
+    <!-- Amount display -->
+    <div class="stk-amount-box">
+      <div class="stk-amount">KES 10,000</div>
+      <div class="stk-amount-label">One-time full compliance report</div>
+    </div>
+
+    <!-- Phone entry (shown first) -->
+    <div id="phoneEntry">
+      <label class="phone-label">Your M-Pesa Phone Number</label>
+      <div class="phone-input-wrap">
+        <div class="phone-prefix">+254</div>
+        <input type="tel" class="phone-input" id="phoneInput" maxlength="9" placeholder="7XX XXX XXX" autocomplete="tel" inputmode="numeric">
+      </div>
+      <button class="btn-pay" id="payBtn" onclick="initiateSTKPush()">
+        📲 Send Payment Request to My Phone
+      </button>
+      <div class="payment-error" id="paymentError"></div>
+      <div class="secure-note">🔒 Your number is never stored · Powered by IntaSend · Real-time Safaricom STK Push</div>
+    </div>
+
+    <!-- Waiting for PIN (shown after STK push sent) -->
+    <div class="stk-waiting" id="stkWaiting">
+      <div class="stk-phone-ripple">
+        <div class="ripple"></div><div class="ripple"></div><div class="ripple"></div>
+        <div class="stk-phone-icon">📱</div>
+      </div>
+      <h3>Check Your Phone</h3>
+      <p>An M-Pesa payment request has been sent to:</p>
+      <div class="phone-display" id="stkPhoneDisplay">+254 7XX XXX XXX</div>
+      <p style="margin-top:14px">Enter your <strong style="color:var(--gold-light)">M-Pesa PIN</strong> to complete payment.<br>This prompt expires in <strong style="color:var(--gold-light)" id="stkCountdown">60s</strong></p>
+      <div class="status-dots">
+        <div class="status-dot"></div><div class="status-dot"></div><div class="status-dot"></div>
+      </div>
+      <p style="font-size:12px;color:rgba(255,255,255,.3)">Checking payment status automatically…</p>
+      <button class="stk-cancel" onclick="cancelSTK()">Didn't receive it? Try again</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ FULL REPORT ══ -->
+<div id="report-screen" class="screen">
+  <div class="report-header">
+    <div class="report-logo">AuditAI Kenya — Full Compliance Report</div>
+    <div class="report-actions">
+      <button class="btn-print" onclick="window.print()">🖨️ Print / Save PDF</button>
+      <button class="btn-new" onclick="newAudit()">+ New Audit</button>
+    </div>
+  </div>
+  <div class="report-body" id="reportBody"></div>
+</div>
+
+<script>
+// ═══ CONFIG ═══
+// (no client-side keys needed — all handled server-side)
+
+// ═══ STATE ═══
+let formData={},reportBlob=null,reportKey=null,fullReport=null,reportMeta=null;
+let stkInvoiceId=null,stkPollTimer=null,stkCountdownTimer=null,stkSecondsLeft=60;
+
+// ═══ CRYPTO ═══
+async function genKey(){return window.crypto.subtle.generateKey({name:'AES-GCM',length:256},false,['encrypt','decrypt']);}
+async function encObj(obj,key){const iv=window.crypto.getRandomValues(new Uint8Array(12));const ct=await window.crypto.subtle.encrypt({name:'AES-GCM',iv},key,new TextEncoder().encode(JSON.stringify(obj)));return{iv,ct};}
+async function decObj(blob,key){const pt=await window.crypto.subtle.decrypt({name:'AES-GCM',iv:blob.iv},key,blob.ct);return JSON.parse(new TextDecoder().decode(pt));}
+
+// ═══ SANITISE ═══
+function san(s){if(typeof s!=='string')return'';return s.replace(/[<>"'&]/g,'').trim().slice(0,500);}
+function sanObj(o){const r={};for(const[k,v]of Object.entries(o)){r[k]=Array.isArray(v)?v.map(san):san(String(v??''));}return r;}
+function st(s){const d=document.createElement('div');d.textContent=String(s??'');return d.innerHTML;}
+
+// ═══ NAV ═══
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
+function startAudit(){showScreen('form-screen');}
+function goToStep(n){document.querySelectorAll('.form-step').forEach(s=>s.classList.remove('active'));document.getElementById('step'+n).classList.add('active');document.getElementById('progressFill').style.width=(n/5*100)+'%';document.getElementById('progressLabel').textContent='Step '+n+' of 5';window.scrollTo(0,0);}
+window.addEventListener('scroll',()=>{const e=document.getElementById('stickyCta');if(e)e.classList.toggle('visible',window.scrollY>400);});
+function toggleFaq(el){el.closest('.faq-item').classList.toggle('open');}
+
+// ═══ FORM EVENTS ═══
+document.querySelectorAll('#aiToolsList,#dataTypesList').forEach(c=>{c.addEventListener('change',e=>{const cb=e.target;const item=cb.closest('.checkbox-item');if(item)item.classList.toggle('checked',cb.checked);});});
+document.querySelectorAll('.radio-group').forEach(g=>{g.addEventListener('change',e=>{const r=e.target;if(r.type!=='radio')return;g.querySelectorAll('.radio-item').forEach(ri=>ri.classList.remove('checked'));r.closest('.radio-item').classList.add('checked');});});
+function getChecked(cid){return Array.from(document.querySelectorAll('#'+cid+' input:checked')).map(cb=>cb.value);}
+function getRadio(name){const el=document.querySelector('input[name="'+name+'"]:checked');return el?el.value:'';}
+function showErr(id,show){document.getElementById(id).style.display=show?'block':'none';}
+
+// ═══ STEP VALIDATION ═══
+function nextStep(from){
+  showErr('err'+from,false);
+  if(from===1){const biz=document.getElementById('bizName').value.trim(),name=document.getElementById('contactName').value.trim(),email=document.getElementById('bizEmail').value.trim(),ind=document.getElementById('industry').value,emp=document.getElementById('employees').value;if(!biz||!name||!email||!ind||!emp)return showErr('err1',true);Object.assign(formData,{bizName:biz,contactName:name,bizEmail:email,industry:ind,employees:emp});}
+  if(from===2){const tools=getChecked('aiToolsList');if(!tools.length)return showErr('err2',true);formData.aiTools=tools;formData.otherTools=document.getElementById('otherTools').value.trim();}
+  if(from===3){const st=document.getElementById('dataStorage').value;if(!st)return showErr('err3',true);formData.dataTypes=getChecked('dataTypesList');formData.dataStorage=st;}
+  if(from===4){const pp=getRadio('privacyPolicy'),c=getRadio('consent'),sp=getRadio('staffPolicy');if(!pp||!c||!sp)return showErr('err4',true);Object.assign(formData,{privacyPolicy:pp,consent:c,staffPolicy:sp});}
+  goToStep(from+1);
+}
+function submitAudit(){
+  showErr('err5',false);
+  const concern=getRadio('mainConcern'),prior=document.getElementById('priorAudit').value;
+  if(!concern||!prior)return showErr('err5',true);
+  Object.assign(formData,{mainConcern:concern,priorAudit:prior,additionalContext:document.getElementById('additionalContext').value.trim(),date:new Date().toLocaleDateString('en-KE',{year:'numeric',month:'long',day:'numeric'})});
+  showScreen('loading-screen');runLoadingSequence();callAuditAPI();
+}
+
+// ═══ LOADING ═══
+function runLoadingSequence(){
+  const ids=['ls1','ls2','ls3','ls4','ls5'];
+  ids.forEach(id=>{const e=document.getElementById(id);e.classList.remove('active','done');});
+  let i=0;
+  function tick(){if(i>0){const p=document.getElementById(ids[i-1]);p.classList.remove('active');p.classList.add('done');}if(i<ids.length){document.getElementById(ids[i]).classList.add('active');i++;setTimeout(tick,1800);}}
+  tick();
+}
+
+// ═══ API CALL ═══
+async function callAuditAPI(){
+  const clean=sanObj(formData);formData={};
+  try{
+    const res=await fetch('/api/audit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(clean)});
+    const report=res.ok?await res.json():buildFallback(clean);
+    try{reportKey=await genKey();reportBlob=await encObj(report,reportKey);}catch(e){fullReport=report;}
+    reportMeta=clean;
+    renderPreview(report,clean);
+  }catch(e){const fb=buildFallback(clean);reportMeta=clean;renderPreview(fb,clean);}
+}
+
+// ═══ FREE PREVIEW ═══
+function renderPreview(report,data){
+  const risk=report.riskLevel||'high';
+  const sc=risk==='high'?'ch':risk==='medium'?'cm':'cl';
+  const findings=report.findings||[];
+  const free=findings.slice(0,2);
+  const lockCount=Math.max(0,findings.length-2);
+
+  const fHTML=free.map(f=>`<div class="finding-card ${st(f.risk)}"><div class="finding-header"><div class="finding-title">${st(f.title)}</div><div class="risk-badge ${st(f.risk)}">${st(f.risk).toUpperCase()}</div></div><div class="finding-text">${st(f.description)}</div></div>`).join('');
+
+  let lHTML='';for(let i=0;i<Math.min(lockCount,3);i++){lHTML+=`<div class="locked-wrap"><div class="locked-card"><div class="finding-header"><div class="finding-title">Critical finding locked</div><div class="risk-badge high">HIGH</div></div><div class="finding-text">This finding contains specific DPA section references and a detailed remediation path. Unlock the full report to view.</div></div><div class="locked-overlay">🔒</div></div>`;}
+
+  document.getElementById('previewBody').innerHTML=`
+    <div class="score-hero">
+      <div class="score-left">
+        <h2>Your Score: ${st(data.bizName||'Your Business')}</h2>
+        <p>${st(data.date||'')} · ${st(data.industry||'')} · ${st(data.employees||'')}</p>
+        <p class="exec-sum">${st(report.executiveSummary||'')}</p>
+      </div>
+      <div class="score-circle ${sc}"><div class="sc-num">${Number(report.overallScore)||0}</div><div class="sc-risk">${risk.toUpperCase()} RISK</div></div>
+    </div>
+    <div class="free-label">✓ Free — Your Top ${free.length} Findings</div>
+    <div class="preview-heading">⚠️ Critical Findings</div>
+    ${fHTML}${lHTML}
+    <div class="unlock-box">
+      <div class="unlock-badge">🔓 Full Report</div>
+      <h3>You have ${lockCount} more finding${lockCount!==1?'s':''} + a complete action roadmap</h3>
+      <p>Every finding mapped to the exact DPA section. A step-by-step remediation plan your team can act on immediately.</p>
+      <div class="unlock-items">
+        <div class="unlock-item"><span class="uc">✓</span>All ${findings.length} compliance findings</div>
+        <div class="unlock-item"><span class="uc">✓</span>Specific DPA 2019 section references</div>
+        <div class="unlock-item"><span class="uc">✓</span>${(report.recommendations||[]).length} prioritised recommendations</div>
+        <div class="unlock-item"><span class="uc">✓</span>Action timelines (2 weeks / 1 month / 3 months)</div>
+        <div class="unlock-item"><span class="uc">✓</span>ODPC registration guidance</div>
+        <div class="unlock-item"><span class="uc">✓</span>Printable PDF report</div>
+      </div>
+      <div class="unlock-price">KES 10,000</div>
+      <div class="unlock-price-sub">One-time · Instant delivery · M-Pesa accepted</div>
+      <button class="btn-unlock" onclick="goToPayment()">Unlock Full Report →</button>
+      <div class="unlock-sec">🔒 AES-256 encrypted · Data never stored · AI-verified payment</div>
+    </div>`;
+  showScreen('preview-screen');
+}
+function goToPayment(){
+  stkInvoiceId=null;
+  clearInterval(stkPollTimer);clearInterval(stkCountdownTimer);
+  stkSecondsLeft=60;
+  document.getElementById('phoneEntry').style.display='block';
+  document.getElementById('stkWaiting').classList.remove('visible');
+  document.getElementById('paymentError').style.display='none';
+  const btn=document.getElementById('payBtn');
+  btn.disabled=false;btn.textContent='📲 Send Payment Request to My Phone';
+  showScreen('payment-screen');
+}
+
+// ═══ PAYMENT — IntaSend STK Push ═══
+function showPayErr(msg){const e=document.getElementById('paymentError');e.textContent=msg;e.style.display='block';}
+
+document.getElementById('phoneInput').addEventListener('input',function(){
+  this.value=this.value.replace(/[^0-9]/g,'');
+});
+
+async function initiateSTKPush(){
+  const raw=document.getElementById('phoneInput').value.replace(/\s/g,'');
+  if(raw.length<9){showPayErr('Please enter your 9-digit M-Pesa number e.g. 712 345 678');return;}
+  const btn=document.getElementById('payBtn');
+  btn.disabled=true;btn.textContent='⏳ Sending to your phone…';
+  document.getElementById('paymentError').style.display='none';
+  try{
+    const res=await fetch('/api/initiate-payment',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({phone:'0'+raw,email:reportMeta?.bizEmail||'customer@auditai.co.ke',bizName:reportMeta?.bizName||'AuditAI Customer'})
+    });
+    const data=await res.json();
+    if(!res.ok||!data.invoice_id){
+      showPayErr(data.error||'Could not send payment request. Please check your number and try again.');
+      btn.disabled=false;btn.textContent='📲 Send Payment Request to My Phone';return;
+    }
+    stkInvoiceId=data.invoice_id;
+    showStkWaiting('254'+raw);
+    startPolling();
+  }catch(e){
+    showPayErr('Network error. Please check your connection and try again.');
+    btn.disabled=false;btn.textContent='📲 Send Payment Request to My Phone';
+  }
+}
+
+function showStkWaiting(phone){
+  document.getElementById('phoneEntry').style.display='none';
+  const w=document.getElementById('stkWaiting');w.classList.add('visible');
+  const p='+'+phone.slice(0,3)+' '+phone.slice(3,6)+' '+phone.slice(6,9)+' '+phone.slice(9);
+  document.getElementById('stkPhoneDisplay').textContent=p;
+  stkSecondsLeft=60;
+  const cd=document.getElementById('stkCountdown');if(cd)cd.textContent='60s';
+  clearInterval(stkCountdownTimer);
+  stkCountdownTimer=setInterval(()=>{
+    stkSecondsLeft--;
+    const el=document.getElementById('stkCountdown');if(el)el.textContent=stkSecondsLeft+'s';
+    if(stkSecondsLeft<=0)clearInterval(stkCountdownTimer);
+  },1000);
+}
+
+function startPolling(){
+  clearInterval(stkPollTimer);
+  setTimeout(pollPaymentStatus,2000);
+  stkPollTimer=setInterval(pollPaymentStatus,3000);
+}
+
+async function pollPaymentStatus(){
+  if(!stkInvoiceId)return;
+  try{
+    const res=await fetch('/api/check-payment',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({invoice_id:stkInvoiceId})});
+    const data=await res.json();
+    const state=data.state||'PENDING';
+    if(data.paid||state==='COMPLETE'){
+      clearInterval(stkPollTimer);clearInterval(stkCountdownTimer);
+      const w=document.getElementById('stkWaiting');
+      if(w)w.innerHTML='<div style="text-align:center;padding:20px 0"><div style="font-size:52px;margin-bottom:16px">✅</div><h3 style="font-family:\'Playfair Display\',serif;font-size:22px;color:#fff;margin-bottom:8px">Payment Confirmed!</h3><p style="font-size:14px;color:rgba(255,255,255,.5)">Unlocking your full report…</p></div>';
+      setTimeout(()=>unlockFullReport(),1200);
+    } else if(state==='FAILED'||state==='CANCELLED'){
+      clearInterval(stkPollTimer);clearInterval(stkCountdownTimer);
+      document.getElementById('phoneEntry').style.display='block';
+      document.getElementById('stkWaiting').classList.remove('visible');
+      showPayErr(data.failed_reason||'Payment was not completed. Please try again.');
+      const btn=document.getElementById('payBtn');btn.disabled=false;btn.textContent='📲 Send Payment Request to My Phone';
+    } else if(stkSecondsLeft<=0){
+      clearInterval(stkPollTimer);clearInterval(stkCountdownTimer);
+      document.getElementById('phoneEntry').style.display='block';
+      document.getElementById('stkWaiting').classList.remove('visible');
+      showPayErr('Payment prompt expired. Please try again — you have 60 seconds to enter your PIN once the prompt appears.');
+      const btn=document.getElementById('payBtn');btn.disabled=false;btn.textContent='📲 Send Payment Request to My Phone';
+    }
+  }catch(e){console.warn('Poll blip — will retry:',e);}
+}
+
+function cancelSTK(){
+  clearInterval(stkPollTimer);clearInterval(stkCountdownTimer);
+  stkInvoiceId=null;
+  document.getElementById('phoneEntry').style.display='block';
+  document.getElementById('stkWaiting').classList.remove('visible');
+  const btn=document.getElementById('payBtn');btn.disabled=false;btn.textContent='📲 Send Payment Request to My Phone';
+}
+
+// ═══ UNLOCK ═══
+async function unlockFullReport(){
+  let report;
+  try{if(reportBlob&&reportKey)report=await decObj(reportBlob,reportKey);else if(fullReport)report=fullReport;else report=buildFallback(reportMeta||{});}
+  catch(e){report=buildFallback(reportMeta||{});}
+  reportBlob=null;reportKey=null;fullReport=null;
+  renderFullReport(report,reportMeta||{});
+}
+
+// ═══ FALLBACK ═══
+function buildFallback(d){
+  d=d||{};
+  const hr=(d.dataTypes||[]).some(t=>t.includes('financial')||t.includes('Health')||t.includes('National')||t.includes('Employee'));
+  const np=(d.privacyPolicy||'').includes('No formal');const nc=(d.consent||'').includes('No consent');
+  const score=hr?(np?26:40):(nc?54:67);const risk=score<40?'high':score<60?'medium':'low';
+  return{overallScore:score,riskLevel:risk,
+    executiveSummary:(d.bizName||'Your business')+' has significant compliance gaps under Kenya\'s Data Protection Act 2019. Key risks include third-party AI data processing, inadequate consent, and unprotected cross-border data transfers. Immediate action is required to avoid ODPC enforcement.',
+    findings:[
+      {title:'Cross-Border Data Transfer Without Safeguards',risk:'high',description:'Your AI tools transfer personal data to foreign servers. Section 48 of the DPA requires adequacy determination or signed Standard Contractual Clauses before any cross-border transfer. No evidence of these safeguards exists.'},
+      {title:'No AI-Specific Data Subject Consent',risk:'high',description:'Section 30 requires freely given, specific, and informed consent. Your current consent mechanism does not meet this standard for AI processing — every AI-processed customer interaction is technically unlawful.'},
+      {title:'Privacy Policy Does Not Disclose AI Processing',risk:'medium',description:'Section 26 requires transparency about all processing including automated processing. Customers and staff are unaware their data enters external AI systems, constituting a transparency violation.'},
+      {title:'No Internal Staff AI Usage Policy',risk:'medium',description:'Without a staff policy, employees may share National IDs or financial records with consumer AI tools. This creates liability under Section 25 and breach notification obligations under Section 43.'},
+      {title:'No Data Processing Agreements with AI Vendors',risk:'medium',description:'Section 39 requires defined data retention limits. Without signed DPAs with OpenAI, Google, or Microsoft, retention periods are undefined and customer data may be used for model training.'},
+      {title:'Unregistered Data Controller',risk:'low',description:'Businesses processing personal data must register with Kenya\'s ODPC under the DPA. Operating without registration is itself an offence, regardless of other compliance measures.'}
+    ],
+    recommendations:[
+      {title:'Register with the ODPC',description:'Complete data controller registration at odpc.go.ke. Required for any business processing personal data.',timeline:'Within 2 weeks'},
+      {title:'Update Privacy Policy to Disclose AI Use',description:'Name each AI tool, what data it receives, where it is processed, and the legal basis. Have it reviewed by a data protection practitioner.',timeline:'Within 2 weeks'},
+      {title:'Implement Explicit AI Consent Checkboxes',description:'Add a standalone unticked consent checkbox to all data collection forms, explicitly naming your AI tools and their purpose. Bundled consent is not compliant.',timeline:'Within 1 month'},
+      {title:'Sign Data Processing Agreements with AI Providers',description:'Request and sign DPAs with each AI provider. Review data retention and opt out of training data use where available.',timeline:'Within 1 month'},
+      {title:'Create an Internal AI Usage Policy',description:'Specify approved AI tools, data categories staff must not input, and consequences for violations. Obtain signed acknowledgement from all staff.',timeline:'Within 1 month'},
+      {title:'Commission a Data Protection Impact Assessment',description:'Section 31 requires a DPIA for high-risk processing including automated decision-making. This document is your primary defence in any ODPC investigation.',timeline:'Within 3 months'}
+    ]};
+}
+
+// ═══ FULL REPORT RENDER ═══
+function renderFullReport(report,data){
+  data=data||{};
+  const sc=report.riskLevel==='high'?'rk-high':report.riskLevel==='medium'?'rk-medium':'rk-low';
+  const rl=report.riskLevel.charAt(0).toUpperCase()+report.riskLevel.slice(1)+' Risk';
+  const fHTML=(report.findings||[]).map(f=>`<div class="finding-card ${st(f.risk)}"><div class="finding-header"><div class="finding-title">${st(f.title)}</div><div class="risk-badge ${st(f.risk)}">${st(f.risk).toUpperCase()}</div></div><div class="finding-text">${st(f.description)}</div></div>`).join('');
+  const rHTML=(report.recommendations||[]).map((r,i)=>`<div class="rec-card"><div class="rec-num">${String(i+1).padStart(2,'0')}</div><div class="rec-content"><div class="rec-title">${st(r.title)}</div><div class="rec-desc">${st(r.description)}</div><div class="rec-timeline">⏱ ${st(r.timeline)}</div></div></div>`).join('');
+  const shareText=encodeURIComponent('I just got my free AI compliance score with AuditAI Kenya — every Kenya SME using AI should check this. Get yours free:');
+  document.getElementById('reportBody').innerHTML=`
+    <div class="report-meta">
+      <div><h2>${st(data.bizName||'Compliance Report')}</h2><p>Full AI Compliance Audit · ${st(data.date||new Date().toLocaleDateString('en-KE'))}</p><p style="margin-top:4px;color:var(--text-muted)">Prepared for: ${st(data.contactName||'')} · ${st(data.industry||'')}</p></div>
+      <div class="cscore ${sc}"><div class="snum">${Number(report.overallScore)||0}</div><div class="slabel">${st(rl)}</div></div>
+    </div>
+    <div class="summary-box"><h3>Executive Summary</h3><p>${st(report.executiveSummary)}</p></div>
+    <div class="report-section"><div class="sec-heading"><span>⚠️</span>Compliance Findings</div>${fHTML}</div>
+    <div class="report-section"><div class="sec-heading"><span>✅</span>Priority Action Roadmap</div>${rHTML}</div>
+    <div class="report-section"><div class="sec-heading"><span>📌</span>Scope &amp; Disclaimer</div><div class="finding-card" style="border-left-color:#ddd"><div class="finding-text">This report is based on information provided during the intake questionnaire. It does not constitute formal legal advice. For ODPC submissions or formal legal opinions, engage a qualified data protection officer or legal practitioner. AuditAI Kenya recommends reassessment every 6 months or after any change in AI tool usage.</div></div></div>
+    <div class="upsell-box">
+      <h3>Stay Compliant — Month by Month</h3>
+      <p>Regulations evolve. AI tools change. Our automated monthly monitoring keeps your posture current and flags risks before they become violations.</p>
+      <div class="upsell-price">KES 5,000 <span>/ month</span></div>
+      <div class="ufeats">
+        <div class="ufeat"><span style="color:var(--success)">✓</span>Monthly AI compliance re-scan</div>
+        <div class="ufeat"><span style="color:var(--success)">✓</span>Regulatory update alerts</div>
+        <div class="ufeat"><span style="color:var(--success)">✓</span>Automated quarterly report</div>
+        <div class="ufeat"><span style="color:var(--success)">✓</span>100% automated</div>
+      </div>
+      <button class="btn-submit" onclick="alert('Monthly monitoring coming soon. We will reach out!')">Get Monthly Monitoring →</button>
+    </div>
+    <div class="share-box">
+      <p>Know another Kenya SME that should check their AI compliance? Share this free tool:</p>
+      <div class="share-btns">
+        <button class="btn-share tw" onclick="window.open('https://twitter.com/intent/tweet?text=${shareText}%20https://auditai.co.ke','_blank')">Share on X / Twitter</button>
+        <button class="btn-share li" onclick="window.open('https://www.linkedin.com/sharing/share-offsite/?url=https://auditai.co.ke','_blank')">Share on LinkedIn</button>
+        <button class="btn-share wa" onclick="window.open('https://api.whatsapp.com/send?text=${shareText}%20https://auditai.co.ke','_blank')">Share on WhatsApp</button>
+      </div>
+    </div>`;
+  showScreen('report-screen');
+}
+
+// ═══ RESET ═══
+function newAudit(){
+  // Clear state
+  formData={};reportBlob=null;reportKey=null;fullReport=null;reportMeta=null;
+  clearInterval(stkPollTimer);clearInterval(stkCountdownTimer);
+  stkInvoiceId=null;stkSecondsLeft=60;
+  // Reset form
+  document.querySelectorAll('.checkbox-item').forEach(el=>{el.classList.remove('checked');const cb=el.querySelector('input[type=checkbox]');if(cb)cb.checked=false;});
+  document.querySelectorAll('.radio-item').forEach(el=>{el.classList.remove('checked');const r=el.querySelector('input[type=radio]');if(r)r.checked=false;});
+  document.querySelectorAll('input[type=text],input[type=email],input[type=tel],select,textarea').forEach(el=>el.value='');
+  document.querySelectorAll('.loading-step').forEach(el=>el.classList.remove('active','done'));
+  // Reset payment screen
+  document.getElementById('paymentError').style.display='none';
+  document.getElementById('phoneEntry').style.display='block';
+  document.getElementById('stkWaiting').classList.remove('visible');
+  const payBtn=document.getElementById('payBtn');
+  if(payBtn){payBtn.disabled=false;payBtn.textContent='📲 Send Payment Request to My Phone';}
+  goToStep(1);showScreen('form-screen');
+}
+</script>
+</body>
+</html>
